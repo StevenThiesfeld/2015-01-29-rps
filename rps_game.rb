@@ -17,37 +17,17 @@
 # #end_game
 # #play
 
-class Game
-  attr_reader :rules, :judge, :best_of
+class Game < Rules
+  attr_reader :best_of
   attr_accessor :winner, :player1, :player2
   
   def initialize(player1, player2, best_of)
     @player1 = player1
     @player2 = player2
     @best_of = (best_of / 2) +1
-    @rules = ["rock", "paper", "scissors"]
-    @judge = {"rock" => "scissors", "scissors" => "paper", "paper" => "rock"}
-    @winner = ""
-    
-      
-    
+    @winner = ""   
   end
   
-  # Public: #get_move
-  # Prompts the player for a move and will check if it's valid.
-  #
-  # Parameters:
-  # player - Player: The player being asked for a move.
-  #
-  # Returns:
-  # none
-  #
-  # State Changes:
-  # Sets player.move to String: the player's move.
-  
-  def get_move(player)
-   
-  end
   
   # Public: #compare_moves
   # Compares the moves of player1 and player2.
@@ -130,8 +110,8 @@ class Game
     
   def play
     loop do
-      player1.make_move(@rules)
-      player2.make_move(@rules)
+      player1.rps_move
+      player2.rps_move
       puts scoreboard(compare_moves)
       end_game
       break if end_game == winner
