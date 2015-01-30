@@ -23,4 +23,13 @@ class Player
     @score += 1
   end
   
+  def make_move(rules)
+    loop do
+      puts "#{@name}: rock paper or scissors"
+      @move = gets.chomp
+    break if rules.include?(move)
+    puts "not a valid move"
+    end
+  end
+  
 end

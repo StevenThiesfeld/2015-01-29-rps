@@ -46,5 +46,5 @@ end
 
 
 
-#driver("New Guy", "RPS Champion Bob Cooper")
+driver("New Guy", "RPS Champion Bob Cooper")
   

@@ -1,5 +1,5 @@
-require_relative 'rps'
-require_relative 'rps-game'
+require_relative 'rps_player'
+require_relative 'rps_game'
 require 'minitest/autorun'
 
 class Test_Player <Minitest::Test

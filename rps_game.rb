@@ -18,16 +18,18 @@
 # #play
 
 class Game
-  attr_reader :valid_move, :judge, :best_of
+  attr_reader :rules, :judge, :best_of
   attr_accessor :winner, :player1, :player2
   
   def initialize(player1, player2, best_of)
     @player1 = player1
     @player2 = player2
     @best_of = (best_of / 2) +1
-    @valid_move = ["rock", "paper", "scissors"]
+    @rules = ["rock", "paper", "scissors"]
     @judge = {"rock" => "scissors", "scissors" => "paper", "paper" => "rock"}
     @winner = ""
+    
+      
     
   end
   
@@ -44,12 +46,7 @@ class Game
   # Sets player.move to String: the player's move.
   
   def get_move(player)
-    loop do
-      puts "#{player.name}: rock paper or scissors"
-      player.move = gets.chomp
-    break if valid_move.include?(player.move)
-    puts "not a valid move"
-    end
+   
   end
   
   # Public: #compare_moves
@@ -133,8 +130,8 @@ class Game
     
   def play
     loop do
-      get_move(player1)
-      get_move(player2)
+      player1.make_move(@rules)
+      player2.make_move(@rules)
       puts scoreboard(compare_moves)
       end_game
       break if end_game == winner
