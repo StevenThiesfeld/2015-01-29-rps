@@ -88,7 +88,7 @@ class Game
   
   def scoreboard(victor)
     if victor != nil
-      victor.score += 1
+      victor.win
       puts "#{victor.name} won the round."
     end
     return player1.score, player2.score
