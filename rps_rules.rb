@@ -12,7 +12,7 @@ require 'pry'
 # #rps_judge_game
 
 class Rules
-  attr_reader :rps, :rps_judge_game
+  attr_reader :rps, :rps_judge_game, :rps_judge
   
   def initialize
     @rps = ["rock", "paper", "scissors"]

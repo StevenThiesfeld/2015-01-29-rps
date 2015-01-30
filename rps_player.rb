@@ -49,11 +49,11 @@ class Player
   # Sets @move to String: the player's move.
 
   def rps_move(rules)
-    loop do
+    @move = ""
+    until (rules.rps).include?(@move) 
       puts "#{@name}: rock paper or scissors"
       @move = gets.chomp
-    break if (rules.rps).include?(move)
-    puts "not a valid move"
+    puts "not a valid move" if (rules.rps).include?(@move) == false
     end
   end
   

@@ -15,13 +15,13 @@
 # #play
 
 class Game 
-  attr_reader :best_of, :rules
+  attr_reader :end_score, :rules
   attr_accessor :winner, :player1, :player2
   
   def initialize(player1, player2, best_of)
     @player1 = player1
     @player2 = player2
-    @best_of = (best_of / 2) +1
+    @end_score = (best_of / 2) +1
     @winner = "" 
     @rules = Rules.new  
   end
@@ -59,10 +59,10 @@ class Game
   # Sets @winner to whoever has the most points.
   
   def end_game
-    if player1.score == best_of
+    if player1.score == end_score
       @winner = player1.name
       @winner
-    elsif player2.score == best_of
+    elsif player2.score == end_score
       @winner = player2.name
       @winner
     end
@@ -82,12 +82,11 @@ class Game
   # none
     
   def play
-    loop do
+    until end_game == winner 
       player1.rps_move(rules)
       player2.rps_move(rules)
       scoreboard(rules.rps_judge_game(player1, player2))
       end_game
-      break if end_game == winner
     end
     puts "#{@winner} is the winner!"
   end
