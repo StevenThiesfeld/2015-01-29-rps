@@ -6,69 +6,42 @@
 # @player1   -Player:  the first player of the game
 # @player2   -Player:  the second player of the game
 # @best_of   -Integer: how many games will be played
-# @valid_move-Array:   what moves will be accepted from the players
-# @judge     -Hash:    determines which player will win a given round
 # @winner    -String:  the name of the overall winner
+# @rules     -Rules:   the rules of rps 
 #
 # Public Methods:
-# #get_move
-# #compare_moves
 # #scoreboard
 # #end_game
 # #play
 
-class Game < Rules
-  attr_reader :best_of
+class Game 
+  attr_reader :best_of, :rules
   attr_accessor :winner, :player1, :player2
   
   def initialize(player1, player2, best_of)
     @player1 = player1
     @player2 = player2
     @best_of = (best_of / 2) +1
-    @winner = ""   
-  end
-  
-  
-  # Public: #compare_moves
-  # Compares the moves of player1 and player2.
-  #
-  # Parameters:
-  # player1.move - String: Player 1's move
-  # player2.move - String: Player 2's move
-  #
-  # Returns:
-  # Player: Whoever won, or nil if a tie
-  #
-  # State Changes:
-  # none
-  
-  def compare_moves
-    if player2.move == judge[player1.move]
-      @player1
-    elsif player1.move == judge[player2.move]
-      @player2
-    else puts 'tie'
-    end
+    @winner = "" 
+    @rules = Rules.new  
   end
   
   # Public: #scoreboard
-  # Adds a point to the victor of the round.
+  # Adds a point to the victor of the round and displays score.
   #
   # Parameters:
   # victor - Player: The player that won the round
   #
   # Returns:
-  # Integer: The scores of player1 and player2
+  # String: The scores of player1 and player2
   #
   # State Changes:
-  # Increments victor.score by 1.
+  # victor.win increments player.score by 1.
   
   def scoreboard(victor)
-    if victor != nil
-      victor.win
-      puts "#{victor.name} won the round."
-    end
-    return player1.score, player2.score
+    victor.win if victor != nil
+    puts "#{victor.name} won the round." if victor != nil
+    puts "#{player1.name}: #{player1.score}", "#{player2.name}: #{player2.score}"
   end
   
   # Public: end_game
@@ -83,7 +56,7 @@ class Game < Rules
   # String: @winner The name of the player that won.
   #
   # State Changes:
-  # Sets @winner to whoever won.
+  # Sets @winner to whoever has the most points.
   
   def end_game
     if player1.score == best_of
@@ -96,7 +69,7 @@ class Game < Rules
   end
   
   # Public: play
-  # Plays a full round of rock paper scissors using other methods.
+  # Plays a full round of rock paper scissors using methods.
   #
   # Parameters:
   # player1  - Player: The first Player.
@@ -110,12 +83,13 @@ class Game < Rules
     
   def play
     loop do
-      player1.rps_move
-      player2.rps_move
-      puts scoreboard(compare_moves)
+      player1.rps_move(rules)
+      player2.rps_move(rules)
+      scoreboard(rules.rps_judge_game(player1, player2))
       end_game
       break if end_game == winner
     end
+    puts "#{@winner} is the winner!"
   end
       
 end #class end

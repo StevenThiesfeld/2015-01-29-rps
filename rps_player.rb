@@ -8,9 +8,10 @@ require 'pry'
 # @move     -String:  The move the player is making in the current game.
 #
 # Methods:
-# none
+# #win
+# #rps_move
 
-class Player < Rules
+class Player 
   attr_reader :name, :score
   attr_accessor :move
 
@@ -35,7 +36,7 @@ class Player < Rules
     @score += 1
   end
   
-  # Public: #make_move
+  # Public: #rps_move
   # Prompts the player for a move and will check if it's valid based on rules from Game.
   #
   # Parameters:
@@ -47,11 +48,11 @@ class Player < Rules
   # State Changes:
   # Sets @move to String: the player's move.
 
-  def rps_move
+  def rps_move(rules)
     loop do
       puts "#{@name}: rock paper or scissors"
       @move = gets.chomp
-    break if rps_rules.include?(move)
+    break if (rules.rps).include?(move)
     puts "not a valid move"
     end
   end
