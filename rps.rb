@@ -1,5 +1,5 @@
-# Go back and provide method documentation for all of your classes and
-# custom-written methods. If you wrote the class (or method), you gotta document it.
+# Every Player method should be unit-tested (with Minitest), including any edge cases.
+#  Make sure to write both tests that should fail and tests that should pass.
 
 # Method: driver
 #
@@ -13,7 +13,6 @@
 # String: name of whichever player won the round
 #
 # State Changes:
-#
 # Creates new Player objects, sets Player.name.
 # Sets player1 and player2 to created Player objects.
 # Updates Player.move and Player.score
@@ -81,6 +80,7 @@ class Player
     @name = name
     @score = 0
   end
+  
   
 end
 
