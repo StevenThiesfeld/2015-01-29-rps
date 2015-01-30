@@ -1,5 +1,13 @@
-# Every Player method should be unit-tested (with Minitest), including any edge cases.
-#  Make sure to write both tests that should fail and tests that should pass.
+# The driver method is doing too much -- really, all it should do
+# is create two players, tell them to play until they’re done
+# (this should be a single method call), and then report the winner.
+# Make this happen by way of creating a Game class; the driver method
+# creates two players, creates the game, gives the players to the game,
+# then tells the game to start. When the game is done, it reports its
+# result back to the driver class. The only methods of the Game class
+# that your driver should ever see are new and play. It is very likely
+# that your Game class will have other methods, but the only methods
+# that your driver should ever interact with are new and play.
 
 # Method: driver
 #
@@ -81,8 +89,7 @@ class Player
     @score = 0
   end
   
-  
 end
 
-driver("New Guy", "RPS Champion Bob Cooper")
+#driver("New Guy", "RPS Champion Bob Cooper")
   
