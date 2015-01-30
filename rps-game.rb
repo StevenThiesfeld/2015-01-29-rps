@@ -1,6 +1,21 @@
-# require 'pry'
-# require_relative 'rps'
-
+# Class: Game
+#
+# Plays a game of rock paper scissors between two given players.
+#
+# Attributes:
+# @player1   -Player:  the first player of the game
+# @player2   -Player:  the second player of the game
+# @best_of   -Integer: how many games will be played
+# @valid_move-Array:   what moves will be accepted from the players
+# @judge     -Hash:    determines which player will win a given round
+# @winner    -String:  the name of the overall winner
+#
+# Public Methods:
+# #get_move
+# #compare_moves
+# #scoreboard
+# #end_game
+# #play
 
 class Game
   attr_reader :valid_move, :judge, :best_of
@@ -16,6 +31,17 @@ class Game
     
   end
   
+  # Public: #get_move
+  # Prompts the player for a move and will check if it's valid.
+  #
+  # Parameters:
+  # player - Player: The player being asked for a move.
+  #
+  # Returns:
+  # none
+  #
+  # State Changes:
+  # Sets player.move to String: the player's move.
   
   def get_move(player)
     loop do
@@ -26,6 +52,19 @@ class Game
     end
   end
   
+  # Public: #compare_moves
+  # Compares the moves of player1 and player2.
+  #
+  # Parameters:
+  # player1.move - String: Player 1's move
+  # player2.move - String: Player 2's move
+  #
+  # Returns:
+  # Player: Whoever won, or nil if a tie
+  #
+  # State Changes:
+  # none
+  
   def compare_moves
     if player2.move == judge[player1.move]
       @player1
@@ -35,6 +74,18 @@ class Game
     end
   end
   
+  # Public: #scoreboard
+  # Adds a point to the victor of the round.
+  #
+  # Parameters:
+  # victor - Player: The player that won the round
+  #
+  # Returns:
+  # Integer: The scores of player1 and player2
+  #
+  # State Changes:
+  # Increments victor.score by 1.
+  
   def scoreboard(victor)
     if victor != nil
       victor.score += 1
@@ -42,6 +93,20 @@ class Game
     end
     return player1.score, player2.score
   end
+  
+  # Public: end_game
+  # Ends the game when a player wins enough rounds.
+  #
+  # Parameters:
+  # player1.score - Integer: The first player's score.
+  # player2.score - Integer: The second player's score.
+  # best_of       - Integer: The number of points needed to end the game.
+  #
+  # Returns:
+  # String: @winner The name of the player that won.
+  #
+  # State Changes:
+  # Sets @winner to whoever won.
   
   def end_game
     if player1.score == best_of
@@ -52,6 +117,19 @@ class Game
       @winner
     end
   end
+  
+  # Public: play
+  # Plays a full round of rock paper scissors using other methods.
+  #
+  # Parameters:
+  # player1  - Player: The first Player.
+  # player2  - Player: The first Player.
+  #
+  # Returns:
+  # none
+  #
+  # State Changes:
+  # none
     
   def play
     loop do
@@ -64,13 +142,3 @@ class Game
   end
       
 end #class end
-
-
-
-# player1 = Player.new("Player 1")
-# player2 = Player.new("Player 2")
-#
-#
-# test = Game.new(player1, player2, 3)
-#
-# binding.pry
