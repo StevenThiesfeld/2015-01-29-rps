@@ -18,12 +18,12 @@ class Game
   attr_reader :end_score, :rules
   attr_accessor :winner, :player1, :player2
   
-  def initialize(player1, player2, best_of)
+  def initialize(player1, player2, best_of, rules)
     @player1 = player1
     @player2 = player2
     @end_score = (best_of / 2) +1
     @winner = "" 
-    @rules = Rules.new  
+    @rules = rules 
   end
   
   # Public: #scoreboard
@@ -33,7 +33,7 @@ class Game
   # victor - Player: The player that won the round
   #
   # Returns:
-  # String: The scores of player1 and player2
+  # nil
   #
   # State Changes:
   # victor.win increments player.score by 1.
@@ -76,16 +76,16 @@ class Game
   # player2  - Player: The first Player.
   #
   # Returns:
-  # none
+  # nil
   #
   # State Changes:
   # none
     
   def play
     until end_game == winner 
-      player1.rps_move(rules)
-      player2.rps_move(rules)
-      scoreboard(rules.rps_judge_game(player1, player2))
+      player1.make_move(rules)
+      player2.make_move(rules)
+      scoreboard(rules.judge_game(player1, player2))
       end_game
     end
     puts "#{@winner} is the winner!"

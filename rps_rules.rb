@@ -11,12 +11,12 @@ require 'pry'
 # Public Methods:
 # #rps_judge_game
 
-class Rules
-  attr_reader :rps, :rps_judge_game, :rps_judge
+class RPS_Rules
+  attr_reader :judge_game, :judge
   
   def initialize
-    @rps = ["rock", "paper", "scissors"]
-    @rps_judge = {"rock" => "scissors", "scissors" => "paper", "paper" => "rock"}
+    #@rps = ["rock", "paper", "scissors"]
+    @judge = {"rock" => "scissors", "paper" => "rock", "scissors" => "paper"}
   end
 
   # Public: #rps_judge_game
@@ -32,13 +32,36 @@ class Rules
   # State Changes:
   # none
   
-  def rps_judge_game(player1, player2)
-    if player2.move == rps_judge[player1.move]
+  def judge_game(player1, player2)
+    if player2.move == judge[player1.move]
       player1
-    elsif player1.move == rps_judge[player2.move]
+    elsif player1.move == judge[player2.move]
       player2
     else puts 'tie'
     end  
   end
   
+end#classend
+
+class RPSLS_Rules
+  attr_reader :judge
+  
+  def initialize
+    @judge = {"rock" => ["scissors", "lizard"],
+              "paper" => ["rock", "spock"],
+              "scissors" => ["lizard", "paper"],
+              "lizard" => ["spock", "paper"],
+              "spock" => ["rock", "scissors"] 
+            }
+  end
+  
+  def judge_game(player1, player2)
+    if judge[player1.move].include?(player2.move)
+      player1
+    elsif judge[player2.move].include?(player1.move)
+      player2
+    else puts 'tie'
+    end  
+  end
+                  
 end#classend

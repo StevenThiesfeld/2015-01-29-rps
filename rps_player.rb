@@ -9,7 +9,7 @@ require 'pry'
 #
 # Methods:
 # #win
-# #rps_move
+# #make_move
 
 class Player 
   attr_reader :name, :score
@@ -36,7 +36,7 @@ class Player
     @score += 1
   end
   
-  # Public: #rps_move
+  # Public: #make_move
   # Prompts the player for a move and will check if it's valid based on rules from Game.
   #
   # Parameters:
@@ -48,13 +48,34 @@ class Player
   # State Changes:
   # Sets @move to String: the player's move.
 
-  def rps_move(rules)
+  def make_move(rules)
     @move = ""
-    until (rules.rps).include?(@move) 
-      puts "#{@name}: rock paper or scissors"
+    until (rules.judge).has_key?(@move) 
+      puts "#{@name}, pick your move: #{rules.judge.keys}"
       @move = gets.chomp
-    puts "not a valid move" if (rules.rps).include?(@move) == false
+    puts "not a valid move" if (rules.judge).include?(@move) == false
     end
+    puts "#{@name} chose #{@move}"
   end
   
 end
+
+class AI_Player
+  attr_reader :name, :score
+  attr_accessor :move
+  
+  def initialize
+    @name = "Computron"
+    @score = 0
+  end
+  
+  def win
+    @score += 1
+  end
+  
+  def make_move(rules)
+    @move = rules.judge.keys.sample
+    puts "#{@name} chose #{@move}"
+  end
+  
+end#classend
