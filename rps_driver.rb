@@ -3,10 +3,38 @@ require_relative 'rps_game'
 require_relative 'rps_player'
 require_relative 'rps_rules'
 
+# Class: Driver
+#
+# Sets up and runs initiates a game.
+#
+# Attributes:
+# @player1   - Player: The first player.
+# @player2   - Player: The second Player
+# @rules     - Rules:  The rules for the selected game
+# @game      - Game:   The match between player 1 and player 2.
+#
+# Public Methods:
+# #get_players
+# #pick_game
+# #make_game
+
 class Driver
   attr_reader :player1, :player2, :rules, :game
   
-  def get_players
+  # Method: #make_players
+  #
+  # Creates the Players that will play the game.
+  #
+  # Paramaters:
+  # choice   - Integer: determines if the 2nd Player will be human or AI.
+  #
+  # Returns:
+  # nil
+  #
+  # State Changes:
+  # Sets @player1 and @player to to Player objects (or AI_Player objects).
+  
+  def make_players
     puts "Enter your name"
     @player1 = Player.new(gets.chomp)
     choice = 0
@@ -23,6 +51,20 @@ class Driver
     end
   end
   
+  # Method: #pick_game
+  #
+  # Chooses the game ruleset for the created game.
+  #
+  # Parameters:
+  #
+  # choice  - Integer: the selection of game.
+  #
+  # Returns:
+  # nil
+  #
+  # State Changes:
+  # Sets @rules to the chosen Rules object.
+  
   def pick_game
     choice = 0
     until choice == 1 || choice == 2
@@ -36,10 +78,24 @@ class Driver
       end
     end
   end
-      
+    
+  # Method: make_game
+  #
+  # Plays a match of RPS.
+  #
+  # Parameters:
+  # best_of  - Integer: The number of games being played
+  # 
+  #
+  # Returns:
+  # nil
+  #
+  # State Changes:
+  # Sets Integer value for best_of
+  # Sets game to new Game.  
  
   def make_game
-    get_players
+    make_players
     pick_game
     puts "best of:"
     best_of = gets.to_i
@@ -47,29 +103,7 @@ class Driver
     game.play
   end
   
-  # Method: play_game
-  #
-  # Plays a round of RPS.
-  #
-  # Parameters:
-  # name1 - String: Name of player1.
-  # name2 - String: Name of player2.
-  #
-  # Returns:
-  # String: name of whichever player won the round
-  #
-  # State Changes:
-  # Creates new Player objects, sets Player.name.
-  # Creates new Game.
-
-  def play_game
-    
-    game.play
-  end
-  
 end#classend
-  
+
 driver = Driver.new
-#driver.get_players
-driver.make_game
-  
+driver.make_game 

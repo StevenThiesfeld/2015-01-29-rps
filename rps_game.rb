@@ -1,6 +1,6 @@
 # Class: Game
 #
-# Plays a game of rock paper scissors between two given players.
+# Plays a game between two given players.
 #
 # Attributes:
 # @player1   -Player:  the first player of the game
@@ -30,17 +30,22 @@ class Game
   # Adds a point to the victor of the round and displays score.
   #
   # Parameters:
-  # victor - Player: The player that won the round
+  # round_winner - Integer: Indicates which player won (or tie)
   #
   # Returns:
   # nil
   #
   # State Changes:
-  # victor.win increments player.score by 1.
+  #round_winner gets set to the Player object that won.
+  # round_winner.win increments player.score by 1.
   
-  def scoreboard(victor)
-    victor.win if victor != nil
-    puts "#{victor.name} won the round." if victor != nil
+  def scoreboard(round_winner)
+    if round_winner != 0
+        round_winner == 1 ? round_winner = @player1 : round_winner = @player2 
+        puts "#{round_winner.name} won the round."
+        round_winner.win
+    else puts "tie"
+    end
     puts "#{player1.name}: #{player1.score}", "#{player2.name}: #{player2.score}"
   end
   
@@ -50,10 +55,10 @@ class Game
   # Parameters:
   # player1.score - Integer: The first player's score.
   # player2.score - Integer: The second player's score.
-  # best_of       - Integer: The number of points needed to end the game.
+  # end_score     - Integer: The number of points needed to end the game.
   #
   # Returns:
-  # String: @winner The name of the player that won.
+  # 
   #
   # State Changes:
   # Sets @winner to whoever has the most points.
@@ -61,10 +66,10 @@ class Game
   def end_game
     if player1.score == end_score
       @winner = player1.name
-      @winner
+      puts "#{@winner} is the winner!"
     elsif player2.score == end_score
       @winner = player2.name
-      @winner
+      puts "#{@winner} is the winner!"
     end
   end
   
@@ -79,16 +84,16 @@ class Game
   # nil
   #
   # State Changes:
-  # none
+  # Sets round_winner to an Integer based on who won the round.
     
   def play
-    until end_game == winner 
+    until @winner != ""
       player1.make_move(rules)
       player2.make_move(rules)
-      scoreboard(rules.judge_game(player1, player2))
+      round_winner = rules.judge_game(player1.move, player2.move)
+      scoreboard(round_winner)
       end_game
-    end
-    puts "#{@winner} is the winner!"
+    end   
   end
       
 end #class end

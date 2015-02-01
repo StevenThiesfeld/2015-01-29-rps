@@ -1,6 +1,7 @@
-require_relative 'rps_player'
-require_relative 'rps_game'
-require_relative 'rps_rules'
+# require_relative 'rps_player'
+# require_relative 'rps_game'
+# require_relative 'rps_rules'
+require_relative 'rps_driver'
 require 'minitest/autorun'
 
 class Test_Rules <Minitest::Test

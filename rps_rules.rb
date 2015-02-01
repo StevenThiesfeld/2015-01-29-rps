@@ -1,67 +1,70 @@
-require 'pry'
+module Shared_Rules
+  # Public: #judge_game
+  # Compares the moves of player1 and player2.
+  #
+  # Parameters:
+  # move1 - String: Player 1's move
+  # move2 - String: Player 2's move
+  #
+  # Returns:
+  # Integer: 1 for Player 1, 2 for Player 2 or 0 for tie
+  #
+  # State Changes:
+  # Sets winner to indicate who won (or tie).
+  
+  def judge_game(move1, move2)
+    if move1 == move2 
+      winner = 0
+    elsif rules[move1].include?(move2) ? winner = 1 : winner = 2
+    end
+    winner
+  end
+  
+end
 
-# Class: Rules
+# Class: RPS_Rules
 #
 # Outlines the rules of rock paper scissors.
 #
 # Attributes:
-# @rps         - Array: a list of acceptable moves
-# @rps_judge   - Hash:  a hash of moves and what they beat
+# @rules   - Hash:  a hash of moves and what they beat
 #
 # Public Methods:
-# #rps_judge_game
+# #judge_game
 
 class RPS_Rules
-  attr_reader :judge_game, :judge
+  
+  include Shared_Rules
+  attr_reader :judge_game, :rules
   
   def initialize
-    #@rps = ["rock", "paper", "scissors"]
-    @judge = {"rock" => "scissors", "paper" => "rock", "scissors" => "paper"}
-  end
-
-  # Public: #rps_judge_game
-  # Compares the moves of player1 and player2.
-  #
-  # Parameters:
-  # player1.move - String: Player 1's move
-  # player2.move - String: Player 2's move
-  #
-  # Returns:
-  # Player: Whoever won, or nil if a tie
-  #
-  # State Changes:
-  # none
-  
-  def judge_game(player1, player2)
-    if player2.move == judge[player1.move]
-      player1
-    elsif player1.move == judge[player2.move]
-      player2
-    else puts 'tie'
-    end  
+    @rules = {"rock" => "scissors", "paper" => "rock", "scissors" => "paper"}
   end
   
 end#classend
 
+# Class: RPSLS_Rules
+#
+# Outlines the rules of rock paper scissors lizard spock.
+#
+# Attributes:
+# @rules   - Hash:  a hash of moves that point to an array of what they beat
+#
+# Public Methods:
+# #judge_game
+
+
 class RPSLS_Rules
-  attr_reader :judge
+  include Shared_Rules
+  attr_reader :rules
   
   def initialize
-    @judge = {"rock" => ["scissors", "lizard"],
+    @rules = {"rock" => ["scissors", "lizard"],
               "paper" => ["rock", "spock"],
               "scissors" => ["lizard", "paper"],
               "lizard" => ["spock", "paper"],
               "spock" => ["rock", "scissors"] 
             }
   end
-  
-  def judge_game(player1, player2)
-    if judge[player1.move].include?(player2.move)
-      player1
-    elsif judge[player2.move].include?(player1.move)
-      player2
-    else puts 'tie'
-    end  
-  end
-                  
+                    
 end#classend
