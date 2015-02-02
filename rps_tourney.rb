@@ -40,8 +40,8 @@ class Tourney
   def matchmaker
     puts "#{(game.loser).name} is eliminated!"
     if game.winner == game.player1
-      players.slice!(1)
-    else players.slice!(0)
+      @players.slice!(1)
+    else @players.slice!(0)
     end
     @champion = @players[0] if @players.count == 1
     @players.rotate!

@@ -68,11 +68,6 @@ class Player_Factory
   
 end#classend
   
-
-
-
-
-
 # Class: Player
 # Someone playing a rousing game of RPS
 #
