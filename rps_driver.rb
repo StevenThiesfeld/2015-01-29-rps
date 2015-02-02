@@ -2,6 +2,7 @@ require 'pry'
 require_relative 'rps_game'
 require_relative 'rps_player'
 require_relative 'rps_rules'
+require_relative 'rps_tourney'
 
 # Class: Driver
 #
@@ -19,8 +20,11 @@ require_relative 'rps_rules'
 # #make_game
 
 class Driver
-  attr_reader :player1, :player2, :rules, :game
+  attr_reader :player1, :player2, :rules, :game, :is_tourney, :players_list
   
+  def initialize
+    @player_factory = Player_Factory.new
+  end
   # Method: #make_players
   #
   # Creates the Players that will play the game.
@@ -34,21 +38,29 @@ class Driver
   # State Changes:
   # Sets @player1 and @player to to Player objects (or AI_Player objects).
   
-  def make_players
-    puts "Enter your name"
-    @player1 = Player.new(gets.chomp)
+  def startup
     choice = 0
     until choice == 1 || choice == 2
-      puts "For Human Opponent type 1 \nFor Computer Opponent type 2"
+      puts "For Single Game type 1 \nFor Tourney type 2"
       choice = gets.to_i
       if choice == 1
-        puts "Enter your name"
-        @player2 = Player.new(gets.chomp) 
+        make_game
       elsif choice == 2
-        @player2 = AI_Player.new
+        make_tourney
       else puts "not a valid choice, pick again"
       end
     end
+  end
+    
+  def make_players
+    @player1 = @player_factory.make_player(1)
+    @player2 = @player_factory.make_player(2)
+  end
+  
+  def make_tourney_players
+    puts "How many Players?"
+    num = gets.to_i
+    @players_list = @player_factory.make_players_list(num)
   end
   
   # Method: #pick_game
@@ -103,7 +115,14 @@ class Driver
     game.play
   end
   
+  def make_tourney
+    make_tourney_players
+    pick_game
+    tourney = Tourney.new(players_list, rules)
+    tourney.start
+  end
+    
 end#classend
 
-# driver = Driver.new
-# driver.make_game
+  driver = Driver.new
+  driver.startup

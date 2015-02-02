@@ -1,3 +1,43 @@
+
+class Player_Factory
+  attr_accessor :players_list
+  
+  def initialize
+    @players_list = Array.new
+  end
+  
+  def make_player(player_num)
+    choice = 0
+    puts "For Human Opponent type 1 \nFor Computer Opponent type 2"
+    until choice == 1 || choice == 2
+    choice = gets.to_i
+      if choice == 1
+        puts "Enter your name"
+        player = Player.new(gets.chomp) 
+      elsif choice == 2
+        player = AI_Player.new("Computer #{player_num}")
+      else puts "not a valid choice, pick again"
+      end
+    end
+    player
+  end
+  
+  def make_players_list(num_players)
+    player_num = 1
+    num_players.times do
+      players_list.push(make_player(player_num))
+      player_num += 1
+    end
+    players_list
+  end
+  
+end#classend
+  
+
+
+
+
+
 # Class: Player
 # Someone playing a rousing game of RPS
 #
@@ -11,8 +51,8 @@
 # #make_move
 
 class Player 
-  attr_reader :name, :score
-  attr_accessor :move
+  attr_reader :name
+  attr_accessor :move, :score
 
   def initialize(name)
     @name = name
@@ -72,11 +112,11 @@ end
 # #make_move
 
 class AI_Player
-  attr_reader :name, :score
-  attr_accessor :move
+  attr_reader :name
+  attr_accessor :move, :score
   
-  def initialize
-    @name = "Computron"
+  def initialize(name)
+    @name = name
     @score = 0
   end
   

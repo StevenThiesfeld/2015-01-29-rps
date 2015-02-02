@@ -15,7 +15,7 @@
 # #play
 
 class Game 
-  attr_reader :end_score, :rules
+  attr_reader :end_score, :rules, :loser
   attr_accessor :winner, :player1, :player2
   
   def initialize(player1, player2, best_of, rules)
@@ -23,7 +23,10 @@ class Game
     @player2 = player2
     @end_score = (best_of / 2) +1
     @winner = "" 
+    @loser = ""
     @rules = rules 
+    player1.score = 0
+    player2.score = 0
   end
   
   # Public: #scoreboard
@@ -65,11 +68,13 @@ class Game
   
   def end_game
     if player1.score == end_score
-      @winner = player1.name
-      puts "#{@winner} is the winner!"
+      @winner = player1
+      @loser = player2
+      puts "#{@winner.name} is the winner!"
     elsif player2.score == end_score
-      @winner = player2.name
-      puts "#{@winner} is the winner!"
+      @winner = player2
+      @loser = player1
+      puts "#{@winner.name} is the winner!"
     end
   end
   
@@ -93,7 +98,8 @@ class Game
       round_winner = rules.judge_game(player1.move, player2.move)
       scoreboard(round_winner)
       end_game
-    end   
+    end 
+    winner  
   end
       
 end #class end

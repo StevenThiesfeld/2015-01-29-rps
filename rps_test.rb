@@ -99,6 +99,21 @@ class Test_Driver <Minitest::Test
     driver.pick_game
     assert_kind_of(RPS_Rules, driver.rules) #fails if RPSLS chosen
   end
+  
+  def test_make_tourney_players
+    driver = Driver.new
+    driver.make_tourney_players
+    assert_kind_of(Array, driver.players_list)
+  end
     
     
+end#classend
+
+
+
+class Test_Player_Factory <Minitest::Test
+  def test_make_players_list
+    factory = Player_Factory.new
+    assert_kind_of(Array, factory.make_players_list(3))
+  end
 end#classend

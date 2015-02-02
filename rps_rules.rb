@@ -35,7 +35,7 @@ end
 class RPS_Rules
   
   include Shared_Rules
-  attr_reader :judge_game, :rules
+  attr_reader :rules
   
   def initialize
     @rules = {"rock" => "scissors", "paper" => "rock", "scissors" => "paper"}
