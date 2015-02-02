@@ -6,7 +6,8 @@
 # @player1   -Player:  the first player of the game
 # @player2   -Player:  the second player of the game
 # @best_of   -Integer: how many games will be played
-# @winner    -String:  the name of the overall winner
+# @winner    -Player:  the overall winner
+# @loser     -Player:  the overall loser
 # @rules     -Rules:   the rules of rps 
 #
 # Public Methods:
@@ -61,7 +62,7 @@ class Game
   # end_score     - Integer: The number of points needed to end the game.
   #
   # Returns:
-  # 
+  # nil
   #
   # State Changes:
   # Sets @winner to whoever has the most points.
@@ -84,9 +85,10 @@ class Game
   # Parameters:
   # player1  - Player: The first Player.
   # player2  - Player: The first Player.
+  # winner   - Player: Tells play to stop playing when someone has won.
   #
   # Returns:
-  # nil
+  # winner - Player: The winner of the game.
   #
   # State Changes:
   # Sets round_winner to an Integer based on who won the round.

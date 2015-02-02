@@ -6,38 +6,45 @@ require_relative 'rps_tourney'
 
 # Class: Driver
 #
-# Sets up and runs initiates a game.
+# Sets up and runs a game.
 #
 # Attributes:
-# @player1   - Player: The first player.
-# @player2   - Player: The second Player
-# @rules     - Rules:  The rules for the selected game
-# @game      - Game:   The match between player 1 and player 2.
+# @player_factory - Player_Factory: Spits out player objects
+# @player1        - Player: The first player.
+# @player2        - Player: The second Player
+# @rules          - Rules:  The rules for the selected game
+# @game           - Game:   The match between player 1 and player 2.
+# @tourney        - Tourney A tournament of multiple games between multiple                    players.
+# @players_list   - Array: An array of Players competing in a tournament
 #
-# Public Methods:
-# #get_players
+# Methods:
+# #startup
+# #make_players
+# #make_tourney_players
 # #pick_game
 # #make_game
+# #make_tourney
 
 class Driver
-  attr_reader :player1, :player2, :rules, :game, :is_tourney, :players_list
+  attr_reader :player1, :player2, :rules, :game, :players_list, :tourney
   
   def initialize
     @player_factory = Player_Factory.new
   end
-  # Method: #make_players
-  #
-  # Creates the Players that will play the game.
-  #
-  # Paramaters:
-  # choice   - Integer: determines if the 2nd Player will be human or AI.
-  #
-  # Returns:
-  # nil
-  #
-  # State Changes:
-  # Sets @player1 and @player to to Player objects (or AI_Player objects).
   
+  # Method: #startup
+#
+#   Leads to either make_game or make_tourney based on user input.
+#
+#   Parameters:
+#   choice - Integer: inputted choice for single game or tourney
+#
+#   Returns:
+#   nil
+#
+#   State Changes:
+#   Sets choice to user's choice.
+#
   def startup
     choice = 0
     until choice == 1 || choice == 2
@@ -51,12 +58,38 @@ class Driver
       end
     end
   end
+  
+  # Method: #make_players
+  #
+  # Gets 2 players from player_factory.
+  #
+  # Paramaters:
+  # none
+  #
+  # Returns:
+  # nil
+  #
+  # State Changes:
+  # Sets @player1 and @player2 to to Player objects (or AI_Player objects).
     
   def make_players
     @player1 = @player_factory.make_player(1)
     @player2 = @player_factory.make_player(2)
   end
   
+ #  Method: #make_tourney_players
+ #
+ #  Gets an array of players for use in a Tourney.
+ #
+ #  Parameters:
+ #  num - Integer: The number of players the factory will put in the array.
+ #
+ #  Returns:
+ #  nil
+ #
+ #  State Changes:
+ #  Sets @player_list to the created array.
+ # 
   def make_tourney_players
     puts "How many Players?"
     num = gets.to_i
@@ -65,7 +98,7 @@ class Driver
   
   # Method: #pick_game
   #
-  # Chooses the game ruleset for the created game.
+  # Chooses the game ruleset for the created game/tourney.
   #
   # Parameters:
   #
@@ -91,7 +124,7 @@ class Driver
     end
   end
     
-  # Method: make_game
+  # Method: #make_game
   #
   # Plays a match of RPS.
   #
@@ -115,6 +148,19 @@ class Driver
     game.play
   end
   
+  # Method: make_tourney
+  #
+  # Creates a Tourney object and starts it.
+  #
+  # Parameters:
+  # none
+  #
+  # Returns:
+  # nil
+  #
+  # State Changes:
+  # Sets tourney to new Tourney object.
+  # 
   def make_tourney
     make_tourney_players
     pick_game
@@ -125,4 +171,4 @@ class Driver
 end#classend
 
   driver = Driver.new
-  driver.startup
+  binding.pry

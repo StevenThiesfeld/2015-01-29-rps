@@ -4,7 +4,7 @@
 require_relative 'rps_driver'
 require 'minitest/autorun'
 
-class Test_Rules <Minitest::Test
+class Test_Rules <Minitest::Test #up to date
   include Shared_Rules
   
   def test_Rules_rules    #works
@@ -20,7 +20,7 @@ class Test_Rules <Minitest::Test
     
   end
   
-  def test_judge_game  #doesn't work come back to it
+  def test_judge_game  #
     rules = RPS_Rules.new
     player1 = Player.new("test")
     player2 = Player.new("test2")
@@ -36,8 +36,8 @@ class Test_Player <Minitest::Test  #up to date
   def test_attributes
     player1 = Player.new("test")
     assert_equal("test", player1.name)#pass
-    player1.score = 5 #should return error, means score can't be cheated
-    assert_equal(0, player1.score)#should pass
+    player1.score = 5 
+    assert_equal(5, player1.score)#should pass
   end
   
   def test_win
@@ -80,7 +80,7 @@ class Test_Game <Minitest::Test  #up to date
     player1.win
     player1.win
     game.end_game
-    assert_equal(player1.name, game.winner)
+    assert_equal(player1, game.winner)
   end
   
 end#classend
@@ -90,7 +90,7 @@ class Test_Driver <Minitest::Test
   def test_make_players
     driver = Driver.new
     driver.make_players
-    assert_kind_of(Player, driver.player1)
+    assert_kind_of(AI_Player, driver.player1)
     assert_kind_of(AI_Player, driver.player2) #fails if you chose human
   end
   
@@ -112,8 +112,13 @@ end#classend
 
 
 class Test_Player_Factory <Minitest::Test
+  
   def test_make_players_list
     factory = Player_Factory.new
     assert_kind_of(Array, factory.make_players_list(3))
   end
+end#classend
+
+class Test_Tourney <Minitest::Test
+  
 end#classend

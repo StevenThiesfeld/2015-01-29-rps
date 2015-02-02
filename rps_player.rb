@@ -1,3 +1,12 @@
+# Class: Player_Factory
+# Creates Player/AI_Player objects for games/tourneys.
+#
+# Attributes:
+# @players_list - Array: An array of players for use in a tourney.
+#
+# Methods:
+# #make_player
+# #make_tourney
 
 class Player_Factory
   attr_accessor :players_list
@@ -5,6 +14,18 @@ class Player_Factory
   def initialize
     @players_list = Array.new
   end
+  
+  # Method: #make_player
+  # Creates a single Player or AI Player.
+  #
+  # Parameters:
+  # player_num - Integer: The player's number assignment.
+  #
+  # Returns:
+  # player - Player or AI_Player: the created player.
+  #
+  # State Changes:
+  # Sets player to new Player object.
   
   def make_player(player_num)
     choice = 0
@@ -21,6 +42,20 @@ class Player_Factory
     end
     player
   end
+  
+  # Method: make_players_list
+  # Runs make_players multiple times and puts created players into an array.
+  #
+  # Parameters:
+  # num_players - Integer: The number of players to make.
+  # player_num  - Integer: Keeps track of what number of player is being made
+  #
+  # Returns:
+  # players_list - Array: The created list of Player objects.
+  #
+  # State Changes:
+  # Increments player_num by 1 for each player made.
+  # Pushed players made to players_list.
   
   def make_players_list(num_players)
     player_num = 1
