@@ -97,6 +97,8 @@ class Game
     until @winner != ""
       player1.make_move(rules)
       player2.make_move(rules)
+      puts "#{player1.name} chose #{player1.move}"
+      puts "#{player2.name} chose #{player2.move}"
       round_winner = rules.judge_game(player1.move, player2.move)
       scoreboard(round_winner)
       end_game

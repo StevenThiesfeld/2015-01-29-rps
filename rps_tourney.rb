@@ -41,7 +41,7 @@ class Tourney
     puts "#{(game.loser).name} is eliminated!"
     if game.winner == game.player1
       @players.slice!(1)
-    else @players.slice!(0)
+    else @players.slice!(0)     #can use @players.slice to cut the loser into a losers bracked
     end
     @champion = @players[0] if @players.count == 1
     @players.rotate!

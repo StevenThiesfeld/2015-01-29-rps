@@ -1,4 +1,7 @@
-require 'pry'
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
+
 require_relative 'rps_game'
 require_relative 'rps_player'
 require_relative 'rps_rules'

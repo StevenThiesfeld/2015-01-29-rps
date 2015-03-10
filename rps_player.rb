@@ -124,7 +124,6 @@ class Player
       @move = gets.chomp
     puts "not a valid move" if (valid.rules).include?(@move) == false
     end
-    puts "#{@name} chose #{@move}"
   end
   
 end
@@ -181,7 +180,6 @@ class AI_Player
   
   def make_move(valid)
     @move = valid.rules.keys.sample
-    puts "#{@name} chose #{@move}"
   end
   
 end#classend
